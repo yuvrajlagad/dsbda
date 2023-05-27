@@ -1,0 +1,419 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 19:49:40 2023
+11111
+@author:1
+"""
+import pandas as pd
+import numpy as np
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\movies edited.csv")
+df
+#checcking for missing value
+missing_value = df.isnull().sum()
+#geeting initial statics
+statistics = df.describe()
+
+print("missing value")
+print(missing_value)
+print("statistics:")
+print(statistics)
+
+df.head(n=5)
+df.tail(n=5)
+
+row_labels =df.index
+print(row_labels)
+
+
+column_lables=df.columns
+print(column_lables)
+
+#dimension
+
+dim =df.shape
+print(dim)
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 20:15:16 2023
+
+@author: 2
+"""
+
+import pandas as pd
+import numpy as np
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\movies edited.csv")
+df
+
+
+#checcking for missing value
+missing_value = df.isnull().sum()
+print("missing value")
+print(missing_value)
+
+
+#geeting initial statics
+statistics = df.describe()
+print("statistics:")
+print(statistics)
+
+var_des=df.dtypes
+print("variabledescription")
+print(var_des)
+
+dimension=df.shape
+print(dimension)
+
+column_values=df.values
+print(column_values)
+
+descriptive_statistic =df.describe(include='all')
+print(descriptive_statistic)
+
+sorted_data = df.sort_index(axis=1)
+print(sorted_data)
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 22:13:01 2023
+
+@author: 3
+"""
+
+
+import pandas as pd
+import numpy as np
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\movies edited.csv")
+df
+
+
+#checcking for missing value
+missing_value = df.isnull().sum()
+print("missing value")
+print(missing_value)
+
+
+#geeting initial statics
+statistics = df.describe()
+print("statistics:")
+print(statistics)
+
+var_des=df.dtypes
+print("variabledescription")
+print(var_des)
+
+dimension=df.shape
+print(dimension)
+
+sorted_data= df.sort_values(by='votes')
+print("sorted values")
+print(sorted_data)
+
+
+selection_by_position= df.iloc[3:4,2:4]
+print(selection_by_position)
+
+
+selection_by_rows = df[10:20]
+print("Selection by rows:")
+print(selection_by_rows)
+
+selection_by_label = df.loc[df['votes'] == 'value']
+print("Selection by Label:")
+print(selection_by_label)
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 22:29:59 2023
+
+@author: 4
+"""
+
+
+
+import pandas as pd
+import numpy as np
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\movies edited.csv")
+df
+
+data_types = df.dtypes
+print("Data Types:")
+print(data_types)
+
+df['petal length (cm)'] = df['petal length (cm)'].astype(int)
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 22:47:57 2023
+
+@author: 5
+"""
+
+
+
+import pandas as pd
+import numpy as np
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\movies edited.csv")
+df
+encoded_data = pd.get_dummies(df, columns=['movie_name'])
+
+missing_values_count = df['votes'].isnull().sum()
+print("Missing Values Count in 'specific_column':", missing_values_count)
+
+missing_values_groupby = df.groupby('votes')['yuvraj'].apply(lambda x: x.isnull().sum())
+print("Groupby Count of Missing Values in 'specific_column':")
+print(missing_values_groupby)
+
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 23:02:07 2023
+
+@author: 6
+"""
+
+
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+
+
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\per.csv")
+df
+
+missing_values = df.isnull().sum()
+print("Missing Values:")
+print(missing_values)
+
+sns.boxplot(data=df[['age','test_score']])
+
+df['transformed_test_score']=np.log(df['test_score'])
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 23:19:21 2023
+
+@author: 7
+"""
+
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+
+
+df=pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\per.csv")
+df
+summary_statistics = df.groupby('age')['test_score'].agg(['mean', 'median', 'min', 'max', 'std'])
+print(summary_statistics)
+
+category_values = df['age'].unique().tolist()
+print(category_values)
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 23:40:33 2023
+
+@author: 8
+"""
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+
+
+df = pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\Iris.csv")
+species_data = df[df['Species'].isin(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])]
+species_stats = species_data.groupby('Species').describe()
+
+print(species_stats)
+
+
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 26 23:59:00 2023
+
+@author: 9
+"""
+
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+data = pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\housing.csv")
+X = data.drop('MEDV', axis=1)
+y = data['MEDV']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+print("Mean Squared Error:", mse)
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 27 00:40:51 2023
+
+@author:10
+"""
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+
+data = pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\housing.csv")
+X = data.drop('MEDV', axis=1)
+y = data['MEDV']
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+cm = confusion_matrix(y_test, y_pred)
+
+
+accuracy = accuracy_score(y_test, y_pred)
+error_rate = 1 - accuracy
+#weighted = precision_score(y_test, y_pred)
+#micro = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+
+
+print("Confusion Matrix:")
+print(cm)
+print("\nAccuracy:", accuracy)
+print("Error Rate:", error_rate)
+#print("Precision:", preci1)
+#print("Recall:", recall1)
+print("F1 Score:", f1)
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 27 00:53:57 2023
+
+@author:11
+"""
+
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk import pos_tag
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+document = "This is a sample document. It contains multiple sentences."
+tokens = word_tokenize(document)
+pos_tags = pos_tag(tokens)
+
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
+
+stemmer = PorterStemmer()
+stemmed_tokens = [stemmer.stem(token) for token in filtered_tokens]
+
+lemmatizer = WordNetLemmatizer()
+lemmatized_tokens = [lemmatizer.lemmatize(token) for token in filtered_tokens]
+
+documents = [document]
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+feature_names = vectorizer.get_feature_names()
+tfidf_representation = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 27 01:13:22 2023
+
+@author: 12
+"""
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+titanic_data = sns.load_dataset('titanic')
+titanic_data
+sns.countplot(x='sex', data=titanic_data)
+plt.show()
+
+sns.histplot(data=titanic_data, x='fare')
+plt.show()
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 27 01:21:42 2023
+
+@author:13
+"""
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+titanic_data = sns.load_dataset('titanic')
+
+sns.boxplot(x='sex', y='age', hue='survived', data=titanic_data)
+plt.xlabel('Gender')
+plt.ylabel('Age')
+plt.title('Distribution of Age with respect to Gender and Survival')
+plt.show()
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 27 01:34:13 2023
+
+@author:14
+"""
+import pandas as pd
+
+# Load the dataset into a DataFrame
+iris_data = pd.read_csv(r"C:\Users\YUVRAJ\Desktop\DSBDAL\Iris.csv")
+
+# Display the column names and data types
+print(iris_data.dtypes)
+
+import matplotlib.pyplot as plt
+
+# Create histograms for each feature
+for feature in iris_data.columns:
+    plt.hist(iris_data[feature])
+    plt.xlabel(feature)
+    plt.ylabel('Frequency')
+    plt.title(f'Histogram of {feature}')
+    plt.show()
+
+import seaborn as sns
+
+# Create box plots for each feature
+for feature in iris_data.columns:
+    sns.boxplot(x=feature, data=iris_data)
+    plt.xlabel(feature)
+    plt.title(f'Box Plot of {feature}')
+    plt.show()
+
